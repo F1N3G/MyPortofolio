@@ -153,19 +153,4 @@ Feel free to reach out for collaboration opportunities or project discussions:
 - [ ] Integrate with GitHub API for live project data
 - [ ] Add multilingual support (Romanian/English)
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
-
-- **AOS Library** for smooth scroll animations
-- **Google Fonts** for beautiful typography
-- **GitHub** for project hosting and version control
-- **Lucian Blaga University of Sibiu** for academic support
-
----
-
-⭐ **Star this repository** if you find it helpful!
-
 **Last Updated**: November 2024
