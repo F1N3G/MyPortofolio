@@ -6,6 +6,7 @@
     <title>Gabriela Neagoe — Junior Full-Stack Developer</title>
     <meta name="description" content="Portfolio of Gabriela Neagoe, junior full-stack developer from Sibiu. Laravel, React, Python, Kotlin.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="project-page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -15,6 +16,7 @@
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -51,6 +53,34 @@
         </div>
     </section>
 
+    <section id="experience" class="section-block" data-aos="fade-up">
+        <div class="section-inner narrow">
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3>Software Engineering Intern</h3>
+                        <p class="experience-company">AgileFreaks — Sibiu, Romania</p>
+                    </div>
+                    <span class="experience-date">Jun – Jul 2025</span>
+                </div>
+                <ul class="experience-list">
+                    <li>Built an internal vacation-analytics dashboard in React 18 and
+                        TypeScript, replacing a manual spreadsheet workflow covering
+                        around 2,500 leave records.</li>
+                    <li>Implemented the core business logic: calendar versus working days
+                        with public-holiday exclusion, multi-month vacation splitting,
+                        cancelled-request handling and lost-hours/cost calculation.</li>
+                    <li>Built CSV ingestion with drag-and-drop upload, date parsing,
+                        record validation and automatic outlier and duplicate detection.</li>
+                    <li>Delivered yearly, quarterly and monthly breakdowns with Recharts.</li>
+                </ul>
+                <span class="tech-stack">React 18 · TypeScript · Recharts · Tailwind · Vite</span>
+            </div>
+        </div>
+    </section>
+
     <section id="projects" class="section-block" data-aos="fade-up">
         <div class="section-inner">
             <h2>Projects</h2>
@@ -59,7 +89,7 @@
 
             <div class="projects-grid">
 
-                <a href="https://github.com/F1N3G/cultural-hub" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/cultural-hub.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>CulturalHub</h3>
@@ -68,11 +98,12 @@
                                role-based access for admins, organizers and users, and a full
                                admin panel with CRUD and reporting.</p>
                             <span class="tech-stack">Laravel 12 · PHP 8.3 · MySQL</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/F1N3G/culturalhub-android" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/culturalhub-android.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>CulturalHub Android</h3>
@@ -80,11 +111,12 @@
                                architecture with ViewModels driving a Jetpack Compose UI,
                                Retrofit networking and Navigation Compose.</p>
                             <span class="tech-stack">Kotlin · Jetpack Compose</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/F1N3G/cultural_event_recommender" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/cultural-event-recommender.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>Cultural Event Recommender</h3>
@@ -93,11 +125,12 @@
                                similarity over event descriptions. Streamlit interface on a
                                pandas pipeline.</p>
                             <span class="tech-stack">Python · scikit-learn</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://project-food-one.vercel.app/" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/grocery-list.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>Grocery List <span class="live-badge">Live</span></h3>
@@ -105,11 +138,12 @@
                                saved lists and a dark/light theme. Deployed on Vercel — open
                                it and try it.</p>
                             <span class="tech-stack">React 18 · TypeScript · Tailwind</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/F1N3G/PhotoGallery" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/photogallery.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>PhotoGallery</h3>
@@ -117,11 +151,12 @@
                                organisation, and deletes that clear both the database record
                                and the file on disk. Indexed SQLite metadata schema.</p>
                             <span class="tech-stack">Python · Flask · SQLite</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/F1N3G/CV_Builder" class="project-link" target="_blank" rel="noopener">
+                <a href="projects/cv-builder.html" class="project-link">
                     <div class="project-card">
                         <div class="project-info">
                             <h3>CV Builder</h3>
@@ -129,6 +164,7 @@
                                live preview. Section tracking handled at database level
                                through stored procedures, triggers and functions.</p>
                             <span class="tech-stack">PHP · MySQL</span>
+                            <span class="card-cta">Read more &rarr;</span>
                         </div>
                     </div>
                 </a>
