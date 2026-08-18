@@ -27,6 +27,10 @@
 .project-body ul { color: #555; padding-left: 20px; margin: 0 0 16px; }
 .project-body li { margin-bottom: 8px; }
 .project-body strong { color: #333; }
+.project-body code {
+    background: #f3f3f3; padding: 2px 6px; border-radius: 4px;
+    font-family: 'Courier New', monospace; font-size: 0.9em; color: #444;
+}
 
 .code-block {
     background: #f7f7f7; border: 1px solid #e3e3e3; border-radius: 8px;
@@ -61,8 +65,44 @@
 }
 .project-card:hover .card-cta { transform: translateX(4px); }
 
+.thesis-badge {
+    display: inline-block; background: #6c5ce7; color: #fff;
+    font-size: 0.6em; padding: 3px 8px; border-radius: 10px;
+    vertical-align: middle; margin-left: 6px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* --- Experience --- */
+.experience-item {
+    background: #fff; border: 1px solid #ddd;
+    border-radius: 10px; padding: 24px; margin-top: 24px;
+}
+
+.experience-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; flex-wrap: wrap; border-bottom: 1px solid #eee;
+    padding-bottom: 14px; margin-bottom: 14px;
+}
+.experience-header h3 { margin: 0; font-size: 1.15em; }
+
+.experience-company {
+    margin: 4px 0 0; color: #ff4a57;
+    font-weight: 500; font-size: 0.95em;
+}
+
+.experience-date {
+    color: #888; font-size: 0.9em;
+    white-space: nowrap; padding-top: 4px;
+}
+
+.experience-list {
+    margin: 0 0 16px; padding-left: 20px;
+    color: #666; font-size: 0.93em;
+}
+.experience-list li { margin-bottom: 8px; }
+
 @media (max-width: 768px) {
     .project-page { padding: 100px 16px 40px; }
     .project-body { padding: 22px; }
     .project-title { font-size: 1.7em; }
-} 
+}

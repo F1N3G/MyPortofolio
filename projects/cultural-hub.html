@@ -27,7 +27,8 @@
             <a href="../index.html#projects" class="back-link">&larr; Back to projects</a>
 
             <h1 class="project-title">CulturalHub</h1>
-            <p class="project-subtitle">A web platform for discovering and booking cultural events across Romania.</p>
+            <p class="project-subtitle">Bachelor's thesis — a web platform for discovering,
+               booking and managing cultural events across Romania.</p>
 
             <div class="project-stack">
                 <span class="stack-chip">Laravel 12</span>
@@ -36,71 +37,102 @@
                 <span class="stack-chip">Blade</span>
                 <span class="stack-chip">Tailwind CSS</span>
                 <span class="stack-chip">Alpine.js</span>
+                <span class="stack-chip">Stripe</span>
                 <span class="stack-chip">PHPUnit</span>
             </div>
 
             <div class="project-body">
                 <h2>Overview</h2>
-                <p>CulturalHub lets visitors browse theatre, opera, cinema, concert and
-                   exhibition events across more than 35 Romanian venues, pick their own
-                   seats on a rendered hall map, and book online. Organizers publish and
-                   manage their own events, while administrators oversee the full catalogue
-                   through a dedicated panel.</p>
+                <p>CulturalHub is my bachelor's thesis project, supervised at Lucian Blaga
+                   University of Sibiu. Visitors browse and filter theatre, opera, cinema and
+                   concert events, pick their own seats on a rendered hall map, and pay
+                   online. Organizers publish and manage their own events; administrators
+                   have full control over users, categories, venues and reporting.</p>
 
-                <p>This is the largest project I have built, and it also serves as my
-                   bachelor's thesis. It grew beyond a single application: the same domain
-                   is now covered by a native Android client and a Python recommendation
-                   engine, both consuming or extending this platform.</p>
+                <p>The goal was not another ticket shop but a platform that takes the
+                   administration side seriously — the part most existing services hide from
+                   the people actually running events. It also grew beyond a single
+                   application: the same domain is now covered by a native Android client and
+                   a Python recommendation engine.</p>
 
                 <h2>Features</h2>
                 <ul>
-                    <li><strong>Seat-selection booking</strong> — hall layout presets for
-                        small, medium and large theatres and cinemas, with instant confirmation.</li>
-                    <li><strong>Role-based access</strong> — Admin, Organizer and User, each
-                        with a distinct set of permissions enforced through policies.</li>
-                    <li><strong>Event management</strong> — full CRUD for events, venues and
-                        categories, with image upload and cleanup on delete.</li>
-                    <li><strong>Discovery</strong> — filtering by category, city and date
-                        across venues in Bucharest, Cluj, Timișoara, Iași and elsewhere.</li>
-                    <li><strong>Admin dashboard</strong> — catalogue statistics, reporting
-                        and user management.</li>
+                    <li><strong>Visual seat selection</strong> — hall maps rendered from a
+                        JSON layout, distinguishing standard, premium and accessible seats,
+                        with the total updating as seats are picked.</li>
+                    <li><strong>Three-role access control</strong> — user, organizer and
+                        admin, enforced by a single middleware across every route.</li>
+                    <li><strong>Online payments</strong> — Stripe integration with webhook
+                        confirmation, plus a mock provider for local development and tests.</li>
+                    <li><strong>Event management</strong> — full CRUD with image upload,
+                        pricing, categories, venues and draft/published/cancelled states.</li>
+                    <li><strong>Reporting and export</strong> — statistics dashboard with
+                        export to CSV, Excel and Google Sheets.</li>
+                    <li><strong>Email notifications</strong> — welcome, reservation and
+                        payment confirmations, dispatched through a queue so they never
+                        block the response.</li>
                 </ul>
 
+                <h2>Payments: the Strategy pattern</h2>
+                <p>The application never talks to Stripe directly. Everything goes through
+                   the <code>IPaymentProvider</code> interface, which defines three
+                   operations: create a checkout session, validate a webhook event, and
+                   identify the provider.</p>
+
+                <div class="code-block">PaymentService
+      ↓ (depends only on the interface)
+IPaymentProvider
+      ├── StripeProvider          # real Stripe API
+      └── MockPaymentProvider     # simulated, used in tests</div>
+
+                <p>Which implementation is used is decided at runtime from a config variable,
+                   through Laravel's dependency injection. The practical payoff: the whole
+                   payment flow can be tested without a network connection, and swapping
+                   providers would not touch a line of business logic.</p>
+
+                <h2>Reservation integrity</h2>
+                <p>Creating a reservation runs inside a database transaction. Each selected
+                   seat is checked individually; if any one has already been taken, the whole
+                   operation rolls back rather than leaving a half-written booking. Valid
+                   seats are stored as separate rows in <code>reservation_seats</code>, so
+                   availability is a property of the data rather than something the
+                   application has to remember.</p>
+
+                <p>Paid events stay in <code>pending</code> until the payment provider's
+                   webhook arrives — the webhook is the source of truth, not the browser
+                   redirect, which a user can close or refresh. The handler is idempotent, so
+                   a webhook delivered twice is processed once.</p>
+
                 <h2>Architecture</h2>
-                <p>The seat-selection feature drives the domain model. Each venue has a hall
-                   layout; events held at that venue inherit it, and reservations store the
-                   specific seats assigned rather than just a quantity. Keeping the
-                   assignment at the data level means double-booking is prevented by the
-                   schema itself, not only by application checks.</p>
+                <div class="code-block">Request
+   ↓
+Routes &amp; Middleware        # authentication, role checks
+   ↓
+Controllers                # Event, Reservation, Payment, Admin, Raport
+   ↓
+Services                   # PaymentService, ReportService
+   ↓
+Eloquent Models  →  MySQL
+   ↓
+Blade Views                # Tailwind CSS + Alpine.js</div>
 
-                <p>Authorization lives in Laravel policies rather than scattered controller
-                   conditionals, so an organizer can only ever reach their own events. Event
-                   validation is isolated in a form request class, keeping controllers thin.</p>
+                <p>Business logic lives in services rather than controllers, which stay thin:
+                   receive, validate, delegate. Authorization sits in one middleware instead
+                   of scattered conditionals, so it applies uniformly.</p>
 
-                <div class="code-block">app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── AdminController.php          # Admin CRUD
-│   │   └── ReservationController.php    # Booking flow
-│   └── Requests/
-│       └── EventRequest.php             # Event validation
-├── Models/
-│   ├── Event.php
-│   ├── Venue.php
-│   └── Reservation.php
-└── Policies/
-    └── EventPolicy.php                  # Authorization rules
-
-database/seeders/
-├── VenuesSeeder.php                     # 35+ Romanian venues
-└── EventsWithSeatsSeeder.php            # Events with seat maps</div>
+                <h2>Testing</h2>
+                <p>50 automated tests, 146 assertions, running in about eight seconds against
+                   an isolated test database. They cover the reservation flow including its
+                   failure cases (seat count mismatch, already-taken seat), the full payment
+                   cycle from checkout to webhook, webhook idempotency, role-based access,
+                   and email dispatch.</p>
 
                 <h2>What I learned</h2>
-                <p>Modelling seats properly turned out to be the difference between a demo
-                   and something that could actually be used. My first approach stored a
-                   booking count per event, which fell apart as soon as two people needed
-                   specific, different seats. Reworking it into explicit seat assignments
-                   made the concurrency question disappear.</p>
+                <p>Two things stand out. First, modelling seats as individual rows rather
+                   than a count made the concurrency problem disappear — the schema enforces
+                   what would otherwise be fragile application checks. Second, hiding the
+                   payment provider behind an interface was worth the extra indirection the
+                   first time I ran the whole payment suite offline in under a second.</p>
 
                 <div class="project-actions">
                     <a href="https://github.com/F1N3G/cultural-hub" class="btn-primary" target="_blank" rel="noopener">View on GitHub</a>
