@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CulturalHub — Gabriela Neagoe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../project-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#experience">Experience</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#skills">Skills</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="project-page">
+        <div class="project-page-inner">
+            <a href="../index.html#projects" class="back-link">&larr; Back to projects</a>
+
+            <h1 class="project-title">CulturalHub</h1>
+            <p class="project-subtitle">A web platform for discovering and booking cultural events across Romania.</p>
+
+            <div class="project-stack">
+                <span class="stack-chip">Laravel 12</span>
+                <span class="stack-chip">PHP 8.3</span>
+                <span class="stack-chip">MySQL</span>
+                <span class="stack-chip">Blade</span>
+                <span class="stack-chip">Tailwind CSS</span>
+                <span class="stack-chip">Alpine.js</span>
+                <span class="stack-chip">PHPUnit</span>
+            </div>
+
+            <div class="project-body">
+                <h2>Overview</h2>
+                <p>CulturalHub lets visitors browse theatre, opera, cinema, concert and
+                   exhibition events across more than 35 Romanian venues, pick their own
+                   seats on a rendered hall map, and book online. Organizers publish and
+                   manage their own events, while administrators oversee the full catalogue
+                   through a dedicated panel.</p>
+
+                <p>This is the largest project I have built, and it also serves as my
+                   bachelor's thesis. It grew beyond a single application: the same domain
+                   is now covered by a native Android client and a Python recommendation
+                   engine, both consuming or extending this platform.</p>
+
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>Seat-selection booking</strong> — hall layout presets for
+                        small, medium and large theatres and cinemas, with instant confirmation.</li>
+                    <li><strong>Role-based access</strong> — Admin, Organizer and User, each
+                        with a distinct set of permissions enforced through policies.</li>
+                    <li><strong>Event management</strong> — full CRUD for events, venues and
+                        categories, with image upload and cleanup on delete.</li>
+                    <li><strong>Discovery</strong> — filtering by category, city and date
+                        across venues in Bucharest, Cluj, Timișoara, Iași and elsewhere.</li>
+                    <li><strong>Admin dashboard</strong> — catalogue statistics, reporting
+                        and user management.</li>
+                </ul>
+
+                <h2>Architecture</h2>
+                <p>The seat-selection feature drives the domain model. Each venue has a hall
+                   layout; events held at that venue inherit it, and reservations store the
+                   specific seats assigned rather than just a quantity. Keeping the
+                   assignment at the data level means double-booking is prevented by the
+                   schema itself, not only by application checks.</p>
+
+                <p>Authorization lives in Laravel policies rather than scattered controller
+                   conditionals, so an organizer can only ever reach their own events. Event
+                   validation is isolated in a form request class, keeping controllers thin.</p>
+
+                <div class="code-block">app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AdminController.php          # Admin CRUD
+│   │   └── ReservationController.php    # Booking flow
+│   └── Requests/
+│       └── EventRequest.php             # Event validation
+├── Models/
+│   ├── Event.php
+│   ├── Venue.php
+│   └── Reservation.php
+└── Policies/
+    └── EventPolicy.php                  # Authorization rules
+
+database/seeders/
+├── VenuesSeeder.php                     # 35+ Romanian venues
+└── EventsWithSeatsSeeder.php            # Events with seat maps</div>
+
+                <h2>What I learned</h2>
+                <p>Modelling seats properly turned out to be the difference between a demo
+                   and something that could actually be used. My first approach stored a
+                   booking count per event, which fell apart as soon as two people needed
+                   specific, different seats. Reworking it into explicit seat assignments
+                   made the concurrency question disappear.</p>
+
+                <div class="project-actions">
+                    <a href="https://github.com/F1N3G/cultural-hub" class="btn-primary" target="_blank" rel="noopener">View on GitHub</a>
+                    <a href="../index.html#projects" class="btn-outline">Back to projects</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Gabriela Neagoe</p></footer>
+</body>
+</html>

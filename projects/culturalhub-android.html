@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CulturalHub Android — Gabriela Neagoe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../project-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#experience">Experience</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#skills">Skills</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="project-page">
+        <div class="project-page-inner">
+            <a href="../index.html#projects" class="back-link">&larr; Back to projects</a>
+
+            <h1 class="project-title">CulturalHub Android</h1>
+            <p class="project-subtitle">A native Android client consuming the CulturalHub REST API.</p>
+
+            <div class="project-stack">
+                <span class="stack-chip">Kotlin</span>
+                <span class="stack-chip">Jetpack Compose</span>
+                <span class="stack-chip">MVVM</span>
+                <span class="stack-chip">Retrofit</span>
+                <span class="stack-chip">Coroutines</span>
+                <span class="stack-chip">Coil</span>
+            </div>
+
+            <div class="project-body">
+                <div class="status-note">
+                    <strong>Work in progress.</strong> The core architecture — networking,
+                    repository, ViewModels and navigation — is in place. Booking,
+                    authentication and search are planned but not yet implemented.
+                </div>
+
+                <h2>Overview</h2>
+                <p>This is the mobile half of CulturalHub. Rather than wrapping the web
+                   application in a WebView, it is a fully native client that talks to the
+                   Laravel backend over its REST API and renders everything in Jetpack Compose.</p>
+
+                <p>Building both sides of the same product taught me more than either would
+                   have alone: designing an API is a very different exercise when you are
+                   also the one consuming it.</p>
+
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>Event list</strong> — fetched from the CulturalHub API and rendered in Compose.</li>
+                    <li><strong>Event detail</strong> — navigable by event ID, passed as a typed navigation argument.</li>
+                    <li><strong>Explicit state handling</strong> — loading, success and error are modelled as distinct states.</li>
+                    <li><strong>Image loading</strong> — Coil, sharing the same OkHttp client as the API layer.</li>
+                </ul>
+
+                <h2>Architecture</h2>
+                <p>Data flows in one direction, from the API through a repository into a
+                   ViewModel, which exposes it as observable state:</p>
+
+                <div class="code-block">UI (Compose)  →  ViewModel  →  Repository  →  Retrofit  →  Laravel backend
+                     ↓
+                 StateFlow</div>
+
+                <p>Each screen exposes its state as a <strong>sealed interface</strong>,
+                   which means the UI can only ever be in one of three defined states — and
+                   the compiler forces every branch to be handled:</p>
+
+                <div class="code-block">sealed interface EventsUiState {
+    data object Loading : EventsUiState
+    data class Success(val events: List&lt;Event&gt;) : EventsUiState
+    data class Error(val message: String) : EventsUiState
+}</div>
+
+                <p>The repository maps API DTOs into domain models, so nothing above it ever
+                   sees the shape of the network layer. If the backend response changes, the
+                   change stops at one file.</p>
+
+                <h2>What I learned</h2>
+                <p>Modelling UI state as a sealed interface rather than a set of booleans
+                   removed a whole class of bugs. With separate loading and error flags, it
+                   is easy to render an impossible combination. With a sealed interface, that
+                   state simply cannot be constructed.</p>
+
+                <div class="project-actions">
+                    <a href="https://github.com/F1N3G/culturalhub-android" class="btn-primary" target="_blank" rel="noopener">View on GitHub</a>
+                    <a href="cultural-hub.html" class="btn-outline">See the backend</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Gabriela Neagoe</p></footer>
+</body>
+</html>

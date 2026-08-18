@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoGallery — Gabriela Neagoe</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../project-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#experience">Experience</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#skills">Skills</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="project-page">
+        <div class="project-page-inner">
+            <a href="../index.html#projects" class="back-link">&larr; Back to projects</a>
+
+            <h1 class="project-title">PhotoGallery</h1>
+            <p class="project-subtitle">A web photo manager with album and tag organisation,
+               built on Flask and SQLite.</p>
+
+            <div class="project-stack">
+                <span class="stack-chip">Python</span>
+                <span class="stack-chip">Flask</span>
+                <span class="stack-chip">SQLite</span>
+                <span class="stack-chip">Jinja2</span>
+            </div>
+
+            <div class="project-body">
+                <h2>Overview</h2>
+                <p>Upload images, organise them into albums with tags, and browse them in a
+                   gallery view. The interesting part is not the interface but the handling
+                   of files and metadata together: every operation has to keep the database
+                   and the filesystem in agreement.</p>
+
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>Validated upload</strong> — extension whitelisting for JPG,
+                        PNG, WebP and GIF.</li>
+                    <li><strong>Collision-free storage</strong> — files are renamed with a
+                        microsecond timestamp, while the original filename is preserved in
+                        the database.</li>
+                    <li><strong>Albums and tags</strong> — each photo carries a title, album
+                        and free-text tags.</li>
+                    <li><strong>Consistent deletes</strong> — removing a photo clears both
+                        the database record and the file on disk.</li>
+                </ul>
+
+                <h2>Data model</h2>
+                <div class="code-block">CREATE TABLE photos (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename      TEXT NOT NULL,   -- stored name (timestamped)
+    original_name TEXT NOT NULL,   -- name as uploaded
+    title         TEXT NOT NULL,
+    album         TEXT NOT NULL DEFAULT 'General',
+    tags          TEXT NOT NULL DEFAULT '',
+    size_bytes    INTEGER NOT NULL,
+    uploaded_at   TEXT NOT NULL
+);</div>
+
+                <p>Indexed on <code>uploaded_at</code> and <code>album</code> — the two
+                   columns the gallery actually sorts and filters by.</p>
+
+                <h2>What I learned</h2>
+                <p>Storing the uploaded filename directly is a mistake that shows up quickly:
+                   two people upload <code>photo.jpg</code> and one overwrites the other.
+                   Separating the stored name from the display name solved it without losing
+                   the information the user cares about.</p>
+
+                <div class="project-actions">
+                    <a href="https://github.com/F1N3G/PhotoGallery" class="btn-primary" target="_blank" rel="noopener">View on GitHub</a>
+                    <a href="../index.html#projects" class="btn-outline">Back to projects</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Gabriela Neagoe</p></footer>
+</body>
+</html>
