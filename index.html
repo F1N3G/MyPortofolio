@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriela Neagoe — Junior Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Gabriela Neagoe, junior full-stack developer from Sibiu. Laravel, React, Python, Kotlin.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="split-screen" data-aos="fade-up">
+        <div class="left-panel">
+            <div class="panel-content">
+                <h1>Hi there,<br>I am <span class="highlight">Gabriela</span></h1>
+                <p class="tagline">Junior full-stack developer from Sibiu. I build things
+                   end to end — data model, business logic, API and UI.</p>
+                <button onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See my work</button>
+            </div>
+        </div>
+        <div class="right-panel">
+            <img src="images/M2.jpg" alt="Gabriela Neagoe">
+        </div>
+    </section>
+
+    <section id="about" class="section-block" data-aos="fade-up">
+        <div class="section-inner narrow">
+            <h2>About Me</h2>
+            <p>I'm Florescu Neagoe Alexandra Gabriela, a Computer Science graduate of
+               Lucian Blaga University of Sibiu. During my internship at AgileFreaks I
+               built an internal vacation-analytics dashboard in React and TypeScript,
+               covering around 2,500 leave records.</p>
+
+            <p>My main project, CulturalHub, spans three layers: a Laravel booking
+               platform with seat selection across 35+ Romanian venues, a native Android
+               client consuming its REST API, and a Python recommendation engine for the
+               same domain. I'm currently looking for a junior backend or full-stack role.</p>
+        </div>
+    </section>
+
+    <section id="projects" class="section-block" data-aos="fade-up">
+        <div class="section-inner">
+            <h2>Projects</h2>
+            <p class="section-lead">A selection of what I've built. Full code on
+               <a href="https://github.com/F1N3G" target="_blank" rel="noopener">GitHub</a>.</p>
+
+            <div class="projects-grid">
+
+                <a href="https://github.com/F1N3G/cultural-hub" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>CulturalHub</h3>
+                            <p>Web platform for booking cultural events across 35+ Romanian
+                               venues. Seat-selection engine with multiple hall layouts,
+                               role-based access for admins, organizers and users, and a full
+                               admin panel with CRUD and reporting.</p>
+                            <span class="tech-stack">Laravel 12 · PHP 8.3 · MySQL</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/F1N3G/culturalhub-android" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>CulturalHub Android</h3>
+                            <p>Native Android client consuming the CulturalHub REST API. MVVM
+                               architecture with ViewModels driving a Jetpack Compose UI,
+                               Retrofit networking and Navigation Compose.</p>
+                            <span class="tech-stack">Kotlin · Jetpack Compose</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/F1N3G/cultural_event_recommender" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>Cultural Event Recommender</h3>
+                            <p>Hybrid recommendation engine combining weighted preference
+                               scoring over category, city and budget with TF-IDF and cosine
+                               similarity over event descriptions. Streamlit interface on a
+                               pandas pipeline.</p>
+                            <span class="tech-stack">Python · scikit-learn</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://project-food-one.vercel.app/" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>Grocery List <span class="live-badge">Live</span></h3>
+                            <p>Editable grocery list with categories, inline editing, search,
+                               saved lists and a dark/light theme. Deployed on Vercel — open
+                               it and try it.</p>
+                            <span class="tech-stack">React 18 · TypeScript · Tailwind</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/F1N3G/PhotoGallery" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>PhotoGallery</h3>
+                            <p>Web photo manager with upload validation, album and tag
+                               organisation, and deletes that clear both the database record
+                               and the file on disk. Indexed SQLite metadata schema.</p>
+                            <span class="tech-stack">Python · Flask · SQLite</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/F1N3G/CV_Builder" class="project-link" target="_blank" rel="noopener">
+                    <div class="project-card">
+                        <div class="project-info">
+                            <h3>CV Builder</h3>
+                            <p>Multi-section CV generator with authentication, sessions and
+                               live preview. Section tracking handled at database level
+                               through stored procedures, triggers and functions.</p>
+                            <span class="tech-stack">PHP · MySQL</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-block" data-aos="fade-up">
+        <div class="section-inner">
+            <h2>Skills &amp; Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h3>Backend</h3>
+                    <p>PHP, Laravel, Flask, REST API design, Eloquent ORM, C# / .NET 8</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Frontend</h3>
+                    <p>TypeScript, JavaScript, React 18, Blade, Tailwind CSS, HTML5, CSS3</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Data &amp; ML</h3>
+                    <p>Python, pandas, NumPy, scikit-learn, Streamlit, matplotlib</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Mobile</h3>
+                    <p>Kotlin, Jetpack Compose, MVVM, Retrofit</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Databases</h3>
+                    <p>MySQL, PostgreSQL, SQLite, stored procedures, triggers</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Tools</h3>
+                    <p>Git, GitHub, Composer, Vite, Gradle, PHPUnit, Agile / Scrum</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-block" data-aos="fade-up">
+        <div class="section-inner narrow">
+            <h2>Get in Touch</h2>
+            <p>I'm open to junior backend and full-stack roles. The fastest way to reach
+               me is by email.</p>
+            <ul class="contact-list">
+                <li><a href="mailto:gabriela.neagoe99@gmail.com">gabriela.neagoe99@gmail.com</a></li>
+                <li><a href="https://www.linkedin.com/in/gabriela-neagoe-802337291" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://github.com/F1N3G" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Gabriela Neagoe</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
